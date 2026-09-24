@@ -19,8 +19,6 @@ own set of commits, so the history shows how the work actually unfolded,
 mistakes and course corrections included.
 
 > **📄 [Read the report](reports/REPORT.md).** The findings in plain language first, then the full analysis.
->
-> **📘 [Learning guide](docs/LEARNING_GUIDE.md).** Every medical term, technique and code concept I used, plus the interview questions I'd expect.
 
 **The short answer:** four signs held up at every hospital I tested them on.
 An abnormal exercise ECG, chest pain brought on by exercise, being male, and
@@ -37,7 +35,7 @@ It's because of who ends up getting tested.
 - [x] **1. Gathering:** download the data reproducibly, verify license and structure
 - [x] **2. Cleaning:** handle missing values, fix types, decode categories, document every decision
 - [x] **3. Analysis:** exploratory analysis and statistical comparisons: Cleveland as the primary sample, all four sites as a robustness check
-- [x] **4. Reporting:** findings, limitations, and visual summary ([report](reports/REPORT.md), [learning guide](docs/LEARNING_GUIDE.md))
+- [x] **4. Reporting:** findings, limitations, and visual summary ([report](reports/REPORT.md))
 
 ## Repository structure
 
@@ -46,7 +44,6 @@ It's because of who ends up getting tested.
 ├── data/
 │   ├── raw/          # original downloads, never edited by hand
 │   └── processed/    # outputs of the cleaning phase
-├── docs/             # learning guide
 ├── notebooks/        # verification and analysis notebooks (02–06)
 ├── src/              # pipeline scripts: download, check, clean, report figures
 ├── reports/
