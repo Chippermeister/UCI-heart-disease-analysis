@@ -201,6 +201,18 @@ plausibly because every patient was already referred for angiography.
 ![Cleveland numeric measurements by diagnosis](reports/figures/cleveland_numeric_by_diagnosis.png)
 ![Cleveland disease rate by category](reports/figures/cleveland_categorical_disease_rate.png)
 
+**Step 2: effect sizes and tests** ([`notebooks/04_cleveland_tests.ipynb`](notebooks/04_cleveland_tests.ipynb),
+table in [`reports/cleveland_tests.csv`](reports/cleveland_tests.csv)). Each
+predictor gets an effect size with a 95% bootstrap confidence interval and a
+p-value with Holm correction for 13 tests. Numeric predictors use a
+Mann–Whitney test and probability of superiority; categorical predictors use a
+chi-square test (permutation-based where cells are small) and Cramér's V.
+10 of 13 remain significant after correction. Cholesterol and resting blood
+pressure pass at p < 0.05 uncorrected but not after correction, and their
+effects are small. Fasting blood sugar shows no association.
+
+![Cleveland effect sizes](reports/figures/cleveland_effect_sizes.png)
+
 ## Ethics & sensitivity
 
 This is de-identified, publicly released health data. Even so:
