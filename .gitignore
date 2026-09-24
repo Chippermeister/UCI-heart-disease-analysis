@@ -1,0 +1,19 @@
+# Python environment & caches
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# OS / secrets
+.DS_Store
+.env
+
+# Sensitive-data guard: the original 76-attribute UCI files once contained
+# patient names and SSNs (since replaced with dummy values). We only use the
+# 14-attribute "processed" files, so the originals must never be committed.
+data/raw/cleveland.data
+data/raw/hungarian.data
+data/raw/switzerland.data
+data/raw/long-beach-va.data
+data/raw/new.data
+data/raw/*.original*
