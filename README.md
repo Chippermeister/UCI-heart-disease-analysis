@@ -8,7 +8,7 @@ separately, so the git history shows how the work actually progressed.
 ## Roadmap
 
 - [x] **1. Gathering** — download the data reproducibly, verify license and structure
-- [ ] **2. Cleaning** — handle missing values, fix types, decode categories, document every decision
+- [ ] **2. Cleaning** — handle missing values, fix types, decode categories, document every decision *(in progress)*
 - [ ] **3. Analysis** — exploratory analysis and statistical comparisons
 - [ ] **4. Reporting** — findings, limitations, and visual summary
 
@@ -36,6 +36,7 @@ pip install -r requirements.txt
 
 python src/download_data.py      # fetch raw files into data/raw/ and verify checksums
 python src/check_structure.py    # read-only report comparing the files to the documentation
+python src/clean_data.py         # write data/processed/heart_clean.csv
 ```
 
 ## Data source & license
@@ -125,6 +126,41 @@ phase.
 rows) consists largely of duplicated records of the same ~300 patients. This
 project pulls the original files directly from the UCI Machine Learning
 Repository so the sample size and provenance are honest.
+
+## Cleaning decisions
+
+`src/clean_data.py` turns the four raw files into one table,
+`data/processed/heart_clean.csv` (920 rows, 18 columns). Raw files are never
+modified, and the script checks its own output (no rows lost, no code left
+unmapped, no zero cholesterol or blood pressure left) before writing anything.
+
+| # | Decision | Why |
+|---|---|---|
+| D1 | Read `?` as missing | It is the marker the files actually use (finding 1) |
+| D2 | `cholesterol` and `resting_bp` values of `0` → missing (172 and 1 cells) | Zero is physiologically impossible; these sites used it for "not measured" (finding 3) |
+| D3 | Target split into `disease` (true if `num` ≥ 1) and `severity` (0–4) | `disease` is comparable across all sites. `severity` is left missing for the 106 Hungarian positives, whose levels were collapsed (finding 2), so it can't be misread as "severity 1" |
+| D4 | Codes decoded to labels (e.g. `cp` 4 → `asymptomatic`); yes/no columns → `True`/`False`; counts and whole-number measurements stored as integers | Readable output with no codebook needed; the mapping is in the data dictionary above |
+| D5 | Columns renamed (e.g. `trestbps` → `resting_bp`, `thalach` → `max_heart_rate`, `oldpeak` → `st_depression`) | Self-explanatory names for analysis and charts |
+| D6 | Added `record_id` (e.g. `va-042` = line 42 of `processed.va.data`) and `site` | Any cleaned row can be traced back to its raw line; site is needed because the sites differ sharply |
+| D7 | The 2 pairs of identical rows are kept and flagged `possible_duplicate` | With no patient ID they can't be proven to be repeats; the flag lets analysis test both ways (finding 6) |
+| D8 | Negative `st_depression` kept as recorded | Plausibly ST elevation, not an error (finding 5) |
+
+**Deliberately left for the analysis phase:** dropping rows, filling in
+missing values, and choosing which sites to analyse. Those depend on the
+question being asked. Missing values stay as empty cells.
+
+**What the cleaned data shows up front:**
+
+| Site | Rows | Disease present |
+|---|---|---|
+| Cleveland | 303 | 46% |
+| Hungarian | 294 | 36% |
+| Switzerland | 123 | 93% |
+| VA Long Beach | 200 | 74% |
+
+Only 299 of the 920 rows (297 of them Cleveland) have no missing values
+(ignoring `severity`). The sites also differ a lot in how common disease is,
+so pooled results would partly reflect *which hospital* a patient came from.
 
 ## Ethics & sensitivity
 
