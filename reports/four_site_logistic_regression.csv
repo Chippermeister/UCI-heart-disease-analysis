@@ -1,0 +1,11 @@
+,Cleveland,Cleveland,Cleveland,Cleveland,Other three sites,Other three sites,Other three sites,Other three sites,All four sites,All four sites,All four sites,All four sites
+,OR,CI low,CI high,p,OR,CI low,CI high,p,OR,CI low,CI high,p
+Age (per 10 years),1.3347,0.893,1.9949,0.1591,1.0927,0.77,1.5508,0.6196,1.2116,0.9375,1.5659,0.1424
+Male (vs female),5.9055,2.7568,12.6503,0.0,2.9245,1.4227,6.0117,0.0035,3.5507,2.1596,5.8378,0.0
+Chest pain: typical angina (vs asymptomatic),0.0975,0.0302,0.3153,0.0001,1.3483,0.3852,4.7195,0.6401,0.3374,0.1505,0.7566,0.0084
+Chest pain: atypical angina (vs asymptomatic),0.2217,0.0848,0.58,0.0021,0.1141,0.0537,0.2424,0.0,0.1466,0.0814,0.264,0.0
+Chest pain: non-anginal (vs asymptomatic),0.1339,0.0597,0.3001,0.0,0.2923,0.1558,0.5484,0.0001,0.2205,0.1368,0.3554,0.0
+Resting BP (per 10 mm Hg),1.2084,0.9982,1.463,0.0522,1.0662,0.9182,1.2381,0.4004,1.0908,0.9721,1.224,0.1394
+Max heart rate (per 10 bpm),0.8008,0.6711,0.9555,0.0137,0.9404,0.8323,1.0626,0.3243,0.899,0.8166,0.9898,0.0302
+Exercise-induced angina,2.1995,1.0562,4.5803,0.0352,3.7394,2.0445,6.8394,0.0,2.9666,1.9032,4.6243,0.0
+ST depression (per 1 unit),1.9657,1.3982,2.7635,0.0001,1.8588,1.3646,2.532,0.0001,1.8871,1.522,2.3399,0.0

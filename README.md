@@ -9,7 +9,7 @@ separately, so the git history shows how the work actually progressed.
 
 - [x] **1. Gathering** — download the data reproducibly, verify license and structure
 - [x] **2. Cleaning** — handle missing values, fix types, decode categories, document every decision
-- [ ] **3. Analysis** — exploratory analysis and statistical comparisons: Cleveland as the primary sample, all four sites as a robustness check *(next)*
+- [x] **3. Analysis** — exploratory analysis and statistical comparisons: Cleveland as the primary sample, all four sites as a robustness check
 - [ ] **4. Reporting** — findings, limitations, and visual summary
 
 ## Repository structure
@@ -229,6 +229,27 @@ The imaging improves the model significantly, but its cross-validated AUC
 only rises from 0.87 to 0.90.
 
 ![Cleveland adjusted odds ratios](reports/figures/cleveland_odds_ratios.png)
+
+**Step 4: four-site robustness check** ([`notebooks/06_four_site_check.ipynb`](notebooks/06_four_site_check.ipynb),
+table in [`reports/four_site_logistic_regression.csv`](reports/four_site_logistic_regression.csv)).
+This step refits a core model with the 7 predictors recorded at every site. It is
+fitted at Cleveland, at the other three sites (550 patients the earlier analysis
+never saw, with a site term), and at all four together (853 patients).
+
+- **Replicates:** ST depression (OR 1.97 at Cleveland vs 1.86 elsewhere),
+  exercise-induced angina, male sex, and the lower odds for atypical and
+  non-anginal chest pain compared with no chest pain.
+- **Does not replicate:** typical angina's low odds (0.10 at Cleveland vs
+  1.35 elsewhere; interaction p = 0.003). This rests on only 23 and 18 patients.
+- **Weaker elsewhere:** max heart rate.
+- **Transport:** a model fitted at Cleveland ranks Hungarian patients as well
+  as its own (AUC 0.87). It does worse at Switzerland and VA (0.75, 0.73),
+  where almost every patient has disease, and it under-predicts Switzerland's
+  risk (70% predicted vs 93% observed).
+- **Sensitivity:** removing possible duplicates changes no odds ratio by more
+  than 3.6%.
+
+![Four-site odds ratios](reports/figures/four_site_odds_ratios.png)
 
 ## Ethics & sensitivity
 
