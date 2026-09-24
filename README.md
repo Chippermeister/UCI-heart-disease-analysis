@@ -5,12 +5,26 @@ are associated with the presence of heart disease, using the UCI Heart Disease
 dataset. The project is deliberately split into four phases, each committed
 separately, so the git history shows how the work actually progressed.
 
+> **📄 [Read the report](reports/REPORT.md)**: the findings in plain language,
+> followed by the full analysis.
+>
+> **📘 [Learning guide](docs/LEARNING_GUIDE.md)**: every medical term,
+> technique and code concept used, with interview questions and answers.
+
+**In one sentence:** among 920 patients referred for heart testing at four
+hospitals, exercise-test results, exercise-induced chest pain, sex and chest
+pain type were consistently linked to heart disease. Routine measurements
+alone separated patients with and without disease with a cross-validated AUC
+of 0.87.
+
+![Four signs stood out and held up at other hospitals](reports/figures/story_2_warning_signs.png)
+
 ## Roadmap
 
 - [x] **1. Gathering** — download the data reproducibly, verify license and structure
 - [x] **2. Cleaning** — handle missing values, fix types, decode categories, document every decision
 - [x] **3. Analysis** — exploratory analysis and statistical comparisons: Cleveland as the primary sample, all four sites as a robustness check
-- [ ] **4. Reporting** — findings, limitations, and visual summary
+- [x] **4. Reporting** — findings, limitations, and visual summary ([report](reports/REPORT.md), [learning guide](docs/LEARNING_GUIDE.md))
 
 ## Repository structure
 
@@ -19,10 +33,13 @@ separately, so the git history shows how the work actually progressed.
 ├── data/
 │   ├── raw/          # original downloads — never edited by hand
 │   └── processed/    # outputs of the cleaning phase
-├── notebooks/        # exploration and analysis notebooks
-├── src/              # reusable scripts (e.g. data download)
+├── docs/             # learning guide
+├── notebooks/        # verification and analysis notebooks (02–06)
+├── src/              # pipeline scripts: download, check, clean, report figures
 ├── reports/
-│   └── figures/      # final charts
+│   ├── REPORT.md     # final report
+│   ├── *.csv         # results tables
+│   └── figures/      # all charts
 ├── requirements.txt  # pinned dependencies
 └── README.md
 ```
@@ -37,6 +54,7 @@ pip install -r requirements.txt
 python src/download_data.py      # fetch raw files into data/raw/ and verify checksums
 python src/check_structure.py    # read-only report comparing the files to the documentation
 python src/clean_data.py         # write data/processed/heart_clean.csv
+python src/make_report_figures.py  # plain-language story charts for the report
 ```
 
 ## Data source & license
