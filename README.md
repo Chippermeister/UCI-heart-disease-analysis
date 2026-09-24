@@ -191,6 +191,16 @@ so pooled results would partly reflect *which hospital* a patient came from.
   into account. A finding that holds in both is more trustworthy than one that
   appears in only one.
 
+**Step 1: Cleveland profile** ([`notebooks/03_cleveland_profile.ipynb`](notebooks/03_cleveland_profile.ipynb)).
+One variable at a time, no tests yet. The clearest differences between patients
+with and without disease are max heart rate, ST depression, exercise angina,
+chest pain type, ST slope, vessel count and thallium result. Cholesterol,
+resting blood pressure and fasting blood sugar barely differ. That is
+plausibly because every patient was already referred for angiography.
+
+![Cleveland numeric measurements by diagnosis](reports/figures/cleveland_numeric_by_diagnosis.png)
+![Cleveland disease rate by category](reports/figures/cleveland_categorical_disease_rate.png)
+
 ## Ethics & sensitivity
 
 This is de-identified, publicly released health data. Even so:
