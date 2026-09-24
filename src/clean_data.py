@@ -57,6 +57,12 @@ RENAME = {
     "thal": "thallium_result",
 }
 
+INTEGERS = ["age", "resting_bp", "cholesterol", "max_heart_rate", "major_vessels", "severity"]
+FLAGS = ["fasting_blood_sugar_gt_120", "exercise_angina", "disease", "possible_duplicate"]
+# Categories keep the documented code order (e.g. chest pain 1-4), not alphabetical.
+CATEGORIES = {RENAME.get(col, col): list(mapping.values()) for col, mapping in LABELS.items()}
+CATEGORIES["site"] = list(SITES)
+
 OUTPUT_ORDER = [
     "record_id", "site", "age", "sex", "chest_pain_type", "resting_bp",
     "cholesterol", "fasting_blood_sugar_gt_120", "resting_ecg", "max_heart_rate",
@@ -98,14 +104,39 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
     for col in BOOLEANS:
         df[col] = df[col].map({0: False, 1: True}).astype("boolean")
     for col in ["age", "trestbps", "chol", "thalach", "ca"]:
-        df[col] = df[col].round().astype("Int64")
+        df[col] = df[col].round()
 
     # D7: identical rows are kept but flagged; with no patient ID we cannot
     # tell a repeated record from two patients with identical measurements.
     df["possible_duplicate"] = df.duplicated(subset=RAW_COLUMNS, keep=False)
 
     # D8: negative st_depression (oldpeak) is kept as recorded.
-    return df.drop(columns="num").rename(columns=RENAME)[OUTPUT_ORDER]
+    df = df.drop(columns="num").rename(columns=RENAME)[OUTPUT_ORDER]
+    return apply_types(df)
+
+
+def apply_types(df: pd.DataFrame) -> pd.DataFrame:
+    """Set the analysis dtypes: nullable integers, nullable booleans, and
+    categoricals in documented order. A CSV stores none of this, so both
+    clean() and load_clean() go through here."""
+    df = df.copy()
+    missing_before = df.isna().sum()
+    for col in INTEGERS:
+        df[col] = df[col].astype("Int64")
+    for col in FLAGS:
+        df[col] = df[col].astype("boolean")
+    for col, order in CATEGORIES.items():
+        df[col] = df[col].astype(pd.CategoricalDtype(order))
+    # astype to a category silently turns unknown labels into missing; refuse that.
+    changed = df.isna().sum() != missing_before
+    assert not changed.any(), f"typing created missing values in {list(changed[changed].index)}"
+    return df
+
+
+def load_clean(path: Path = OUT_FILE) -> pd.DataFrame:
+    """Load heart_clean.csv with the correct types. Use this instead of
+    pd.read_csv in the analysis phase."""
+    return apply_types(pd.read_csv(path))
 
 
 def validate(raw: pd.DataFrame, clean_df: pd.DataFrame) -> None:
@@ -128,6 +159,8 @@ def main() -> None:
 
     OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
     clean_df.to_csv(OUT_FILE, index=False)
+    # The saved file must load back identical to what was just written.
+    pd.testing.assert_frame_equal(load_clean(), clean_df)
 
     print(f"Wrote {len(clean_df)} rows x {clean_df.shape[1]} columns to {OUT_FILE.relative_to(ROOT)}")
     print("\nDisease present, by site:")

@@ -8,8 +8,8 @@ separately, so the git history shows how the work actually progressed.
 ## Roadmap
 
 - [x] **1. Gathering** — download the data reproducibly, verify license and structure
-- [ ] **2. Cleaning** — handle missing values, fix types, decode categories, document every decision *(in progress)*
-- [ ] **3. Analysis** — exploratory analysis and statistical comparisons
+- [x] **2. Cleaning** — handle missing values, fix types, decode categories, document every decision
+- [ ] **3. Analysis** — exploratory analysis and statistical comparisons: Cleveland as the primary sample, all four sites as a robustness check *(next)*
 - [ ] **4. Reporting** — findings, limitations, and visual summary
 
 ## Repository structure
@@ -145,6 +145,18 @@ unmapped, no zero cholesterol or blood pressure left) before writing anything.
 | D7 | The 2 pairs of identical rows are kept and flagged `possible_duplicate` | With no patient ID they can't be proven to be repeats; the flag lets analysis test both ways (finding 6) |
 | D8 | Negative `st_depression` kept as recorded | Plausibly ST elevation, not an error (finding 5) |
 
+**Loading the cleaned data.** A CSV can't store column types, so read it with
+`load_clean()` rather than `pd.read_csv`. It restores whole numbers as
+nullable integers, yes/no columns as nullable booleans, and categories in
+their documented order (e.g. chest pain types 1–4, not alphabetical), and
+refuses to run if a label in the file isn't a known category:
+
+```python
+import sys; sys.path.insert(0, "src")
+from clean_data import load_clean
+df = load_clean()
+```
+
 **Verified in [`notebooks/02_cleaning_check.ipynb`](notebooks/02_cleaning_check.ipynb):**
 every difference between raw and clean is explained by a decision above (only
 173 zero values were removed; all other kept values are identical; every code
@@ -168,6 +180,16 @@ question being asked. Missing values stay as empty cells.
 Only 299 of the 920 rows (297 of them Cleveland) have no missing values
 (ignoring `severity`). The sites also differ a lot in how common disease is,
 so pooled results would partly reflect *which hospital* a patient came from.
+
+**Analysis plan (Phase 3).** Because of this, the analysis runs twice:
+
+- **Primary: Cleveland only.** 303 patients with all 13 predictors, nearly
+  complete.
+- **Robustness check: all four sites.** 920 patients, limited to the core
+  measurements present at every site (age, sex, chest pain type, resting blood
+  pressure, max heart rate, exercise angina, ST depression), with site taken
+  into account. A finding that holds in both is more trustworthy than one that
+  appears in only one.
 
 ## Ethics & sensitivity
 
