@@ -2,16 +2,15 @@
 
 This guide is for me, the author. It explains every medical idea, statistical
 technique and coding concept in the project in plain language, why each choice
-was made, and how to answer questions about it in an interview. It assumes
-**no medical background**.
+was made, and how to answer questions about it in an interview.
 
-**How to use it:** read Part 1 once so the medical terms stop being a barrier.
+**How to use it:** read Part 1 as a primer on the medical terms.
 Parts 2–5 follow the project from start to finish. Part 6 is interview
 practice, and Part 7 is a one-page cheat sheet of numbers to know.
 
 ---
 
-## Part 1: The medical background you need
+## Part 1: Medical primer
 
 You don't need to be a clinician to analyse this data. You do need to know
 what each column measures, so you can explain the results and avoid saying
@@ -331,10 +330,10 @@ than the cross-validated AUC. That gap is the over-fitting.
 > Two reasons. I'm always working to get better at Python and machine
 > learning, and the best way I know is to take a real dataset all the way
 > from raw files to a finished report. And healthcare hires a lot of data
-> analysts, so I wanted to learn how clinical data behaves. I don't have a
-> medical background, so I had to learn the terms as I went. That turned out
-> to be useful, because it forced me to check what every column meant before
-> trusting it.
+> analysts, so I wanted to learn how clinical data behaves. Medical data
+> makes you check what every column means before you trust it, and that habit
+> is what caught six problems in the raw files before they reached the
+> analysis.
 
 **"Walk me through the project in two minutes."**
 > I took the original UCI heart disease data, 920 patients from four

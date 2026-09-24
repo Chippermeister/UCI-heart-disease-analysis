@@ -11,9 +11,8 @@ first one?
 I built this for two reasons. I'm always pushing to learn more Python and
 machine learning, and the best way I know to do that is to pick a real
 dataset and see it all the way through. And healthcare hires a lot of data
-analysts. I'd like to be one of them. I don't come from a medical background,
-so this doubled as my crash course in how clinical data actually behaves: the
-gaps, the odd codes and all.
+analysts. I'd like to be one of them, so I wanted to learn how clinical data
+actually behaves: the gaps, the odd codes and all.
 
 I took it from raw download to final report in four phases. Each one is its
 own set of commits, so the history shows how the work actually unfolded,
