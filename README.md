@@ -145,6 +145,13 @@ unmapped, no zero cholesterol or blood pressure left) before writing anything.
 | D7 | The 2 pairs of identical rows are kept and flagged `possible_duplicate` | With no patient ID they can't be proven to be repeats; the flag lets analysis test both ways (finding 6) |
 | D8 | Negative `st_depression` kept as recorded | Plausibly ST elevation, not an error (finding 5) |
 
+**Verified in [`notebooks/02_cleaning_check.ipynb`](notebooks/02_cleaning_check.ipynb):**
+every difference between raw and clean is explained by a decision above (only
+173 zero values were removed; all other kept values are identical; every code
+maps to its documented label), and sample rows trace back to their raw lines.
+
+![Share of values missing, by site](reports/figures/missing_by_site.png)
+
 **Deliberately left for the analysis phase:** dropping rows, filling in
 missing values, and choosing which sites to analyse. Those depend on the
 question being asked. Missing values stay as empty cells.
