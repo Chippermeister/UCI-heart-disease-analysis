@@ -1,0 +1,19 @@
+,A: pre-imaging,A: pre-imaging,A: pre-imaging,A: pre-imaging,B: + imaging,B: + imaging,B: + imaging,B: + imaging
+,OR,CI low,CI high,p,OR,CI low,CI high,p
+Age (per 10 years),1.2533,0.822,1.9109,0.294,0.8719,0.5368,1.4162,0.5796
+Male (vs female),7.4799,3.2537,17.1955,0.0,4.6575,1.6586,13.0781,0.0035
+Chest pain: typical angina (vs asymptomatic),0.0943,0.0282,0.3151,0.0001,0.1237,0.0335,0.4565,0.0017
+Chest pain: atypical angina (vs asymptomatic),0.2529,0.0933,0.6853,0.0069,0.4289,0.143,1.2863,0.1309
+Chest pain: non-anginal (vs asymptomatic),0.1389,0.0596,0.3238,0.0,0.159,0.0596,0.4241,0.0002
+Resting BP (per 10 mm Hg),1.2061,0.993,1.465,0.0588,1.2771,1.0248,1.5916,0.0294
+Cholesterol (per 50 mg/dl),1.2633,0.901,1.7713,0.1753,1.2467,0.844,1.8415,0.268
+Fasting blood sugar > 120,0.9378,0.3634,2.4199,0.8944,0.5496,0.167,1.8096,0.3249
+Resting ECG abnormal,1.4643,0.7548,2.8409,0.2594,1.6137,0.7631,3.4124,0.2104
+Max heart rate (per 10 bpm),0.8222,0.6772,0.9983,0.048,0.8366,0.6733,1.0395,0.1073
+Exercise-induced angina,1.9024,0.8883,4.074,0.0979,2.0335,0.8585,4.8169,0.1067
+ST depression (per 1 unit),1.8229,1.2333,2.6944,0.0026,1.4348,0.9162,2.2469,0.1146
+ST slope: flat (vs upsloping),2.1123,0.945,4.7215,0.0684,3.1715,1.2535,8.0244,0.0148
+ST slope: downsloping (vs upsloping),0.6882,0.1246,3.8009,0.6682,1.6813,0.2773,10.1934,0.572
+Major vessels (per vessel),,,,,3.7089,2.1455,6.4116,0.0
+Thallium: fixed defect (vs normal),,,,,0.9868,0.2097,4.6432,0.9866
+Thallium: reversible defect (vs normal),,,,,4.0281,1.7511,9.2659,0.001

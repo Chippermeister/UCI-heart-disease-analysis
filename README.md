@@ -213,6 +213,23 @@ effects are small. Fasting blood sugar shows no association.
 
 ![Cleveland effect sizes](reports/figures/cleveland_effect_sizes.png)
 
+**Step 3: predictors together** ([`notebooks/05_cleveland_model.ipynb`](notebooks/05_cleveland_model.ipynb),
+table in [`reports/cleveland_logistic_regression.csv`](reports/cleveland_logistic_regression.csv)).
+There are two logistic regressions. Model A uses only measurements taken before specialised
+imaging (11 predictors); Model B adds vessel count and thallium result. Once
+predictors are adjusted for each other:
+
+- **Age** is no longer clear. It overlaps with max heart rate and vessel count.
+- **Sex** gets *stronger*: odds ratio for men 7.5, against 3.6 unadjusted.
+- **Asymptomatic chest pain** still has much higher odds than any chest pain type.
+- **The four exercise-test measurements** overlap. Only ST depression and max
+  heart rate stay clear in Model A.
+
+The imaging improves the model significantly, but its cross-validated AUC
+only rises from 0.87 to 0.90.
+
+![Cleveland adjusted odds ratios](reports/figures/cleveland_odds_ratios.png)
+
 ## Ethics & sensitivity
 
 This is de-identified, publicly released health data. Even so:
