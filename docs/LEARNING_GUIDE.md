@@ -11,7 +11,7 @@ practice, and Part 7 is a one-page cheat sheet of numbers to know.
 
 ---
 
-## Part 1 — The medical background you need
+## Part 1: The medical background you need
 
 You don't need to be a clinician to analyse this data. You do need to know
 what each column measures, so you can explain the results and avoid saying
@@ -107,7 +107,7 @@ knowing where your expertise ends is part of that.
 
 ---
 
-## Part 2 — Getting the data (Phase 1)
+## Part 2: Getting the data (Phase 1)
 
 ### 2.1 Why download from UCI instead of Kaggle
 The popular Kaggle `heart.csv` has 1,025 rows, but most are duplicates of the
@@ -146,7 +146,7 @@ they could help re-identify someone), so only aggregate results are reported.
 
 ---
 
-## Part 3 — Cleaning the data (Phase 2)
+## Part 3: Cleaning the data (Phase 2)
 
 ### 3.1 The principle: raw is read-only, cleaning is code
 Every change is made by `src/clean_data.py`, never by hand, and each maps to a
@@ -183,7 +183,7 @@ byte-identical file.
 
 ---
 
-## Part 4 — The analysis (Phase 3)
+## Part 4: The analysis (Phase 3)
 
 ### 4.1 The overall strategy (worth explaining in any interview)
 1. **Describe** one variable at a time (notebook 03).
@@ -309,7 +309,7 @@ than the cross-validated AUC. That gap is the over-fitting.
 
 ---
 
-## Part 5 — Engineering practices worth mentioning
+## Part 5: Engineering practices worth mentioning
 
 - **Scripts for pipeline steps, notebooks for analysis.** Scripts are
   re-runnable and testable; notebooks mix code, output and explanation.
@@ -325,7 +325,16 @@ than the cross-validated AUC. That gap is the over-fitting.
 
 ---
 
-## Part 6 — Interview questions, with answers
+## Part 6: Interview questions, with answers
+
+**"Why did you pick this project?"**
+> Two reasons. I'm always working to get better at Python and machine
+> learning, and the best way I know is to take a real dataset all the way
+> from raw files to a finished report. And healthcare hires a lot of data
+> analysts, so I wanted to learn how clinical data behaves. I don't have a
+> medical background, so I had to learn the terms as I went. That turned out
+> to be useful, because it forced me to check what every column meant before
+> trusting it.
 
 **"Walk me through the project in two minutes."**
 > I took the original UCI heart disease data, 920 patients from four
@@ -410,7 +419,7 @@ than the cross-validated AUC. That gap is the over-fitting.
 
 ---
 
-## Part 7 — Cheat sheet: numbers to know
+## Part 7: Cheat sheet: numbers to know
 
 | Fact | Number |
 |---|---|

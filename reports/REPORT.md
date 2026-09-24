@@ -7,41 +7,43 @@
 
 ## The short version
 
-**The question.** Doctors refer some patients for an angiogram, an X-ray
-of the heart's arteries that shows whether they are narrowed. Among those
-patients, which signs from routine check-ups and exercise tests go along with
-actually having heart disease? And do those links hold up at more than one
-hospital?
+**The question.** When a doctor suspects heart disease, one test they can
+order is an angiogram: dye goes into the heart's arteries and an X-ray shows
+whether they're narrowed. Everyone in this data had one. I wanted to know
+which of the everyday measurements taken *before* that test, from a check-up
+and a treadmill exercise test, actually line up with what the angiogram
+found. And whether the answer survives a move to a different hospital.
 
-**What I found:**
+**What I found.**
 
-1. **Four signs stand out, and they held up at three other hospitals.**
-   Patients with any of these were much more likely to have heart disease:
-   - **Chest pain brought on by exercise:** 77% had heart disease, compared with 31% of those without it.
+1. **Four signs stood out, and they held up at three other hospitals.**
+   Patients with any of these were far more likely to have heart disease:
+   - **Chest pain brought on by exercise:** 77% had heart disease, against 31% of those without it.
    - **An abnormal reading on the exercise heart tracing (ECG):** 67% vs 28%.
    - **Being male:** 55% vs 26%.
-   - **Having no chest pain at rest**, compared with patients whose chest pain didn't fit the typical heart pattern: 73% vs 20%.
+   - **No chest pain at rest**, compared with chest pain that didn't fit the classic heart pattern: 73% vs 20%.
 
-   The last one surprises most people. The likely reason is how patients
-   reached the angiogram: someone without chest pain was probably sent because
-   another test had already come back abnormal.
+   That last one surprised me too. My best explanation is how people end up
+   on the angiogram table. Someone with no chest pain was probably sent
+   because a different test had already come back abnormal. That's a
+   hypothesis, though. The data can't prove it.
 
-2. **Several well-known risk factors barely told the groups apart here.**
-   These include cholesterol, blood pressure, blood sugar and, once other
-   signs were accounted for, age. That doesn't mean they don't matter for
-   heart health. Everyone in this study had already been referred for heart
-   testing, so they were already a high-risk group, and inside such a group
-   these factors separate patients less well.
+2. **Some of the most famous risk factors barely told the groups apart.**
+   Cholesterol, blood pressure, blood sugar and, once the other signs were
+   accounted for, age. That doesn't mean they don't matter for your heart.
+   Everyone here had already been flagged as high-risk, and inside a group
+   like that these factors lose most of their power to separate people.
 
-3. **Routine measurements alone predict well.** A model using only the
-   check-up and exercise-test results picked out the patient with disease in
-   **87 out of 100** random pairs of one patient with disease and one without.
-   Adding specialised imaging raised that to **90 out of 100**.
+3. **Routine measurements get you most of the way there.** Using only
+   check-up and exercise-test results, the model picked out the patient with
+   disease in **87 of 100** random pairs (one patient with disease, one
+   without). Adding specialised heart imaging raised that to **90 of 100**.
+   Useful, but not the leap you'd expect.
 
-4. **Hospitals differed enormously.** Between 36% and 93% of patients had
-   heart disease, depending on the hospital. A prediction built at one hospital
-   ranked patients well at another, but its predicted risk levels were off
-   where disease was far more common.
+4. **The hospital mattered as much as the patient.** Between 36% and 93% of
+   patients had heart disease, depending on where they were tested. A model
+   built in Cleveland ranked patients well in Budapest. In Switzerland, where
+   almost everyone had the disease, it guessed far too low.
 
 ![Heart disease rates by hospital](figures/story_1_hospitals.png)
 
@@ -59,14 +61,21 @@ hospital?
 | Maximum heart rate during exercise | ✅ moderate | ➖ unclear | **Weaker elsewhere** |
 | Age, blood pressure, cholesterol, blood sugar, resting ECG | ➖ | ➖ | **No clear link** once other factors are accounted for |
 
-### What this does *not* show
+### What this doesn't show
 
-- **It isn't advice about anyone's health.** It describes people already sent
-  for heart testing, in data that was donated to UCI in 1988.
-- **It shows links, not causes.** A sign that goes with heart disease isn't
-  necessarily a cause of it.
-- **It isn't a diagnostic tool.** The models are for understanding the data,
-  not for making clinical decisions.
+- **It's not health advice.** These are people who'd already been sent for
+  heart testing, in data that was donated to UCI in 1988.
+- **It shows links, not causes.** A sign that goes along with heart disease
+  isn't necessarily causing it.
+- **It's not a diagnostic tool.** I built these models to understand the
+  data, not to make decisions about anyone's care.
+
+**Where it falls short.** The biggest gap is missing data at the Long Beach
+VA. Patients without heart disease were dropped more often than patients
+with it, which can tilt the results. Next, I'd fill those gaps with multiple
+imputation (a way of estimating missing values several times over to show
+how uncertain they are) and check whether the four-hospital findings still
+hold.
 
 ---
 

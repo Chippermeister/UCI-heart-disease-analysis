@@ -1,37 +1,51 @@
-# UCI Heart Disease — An End-to-End Analytics Case Study
+# Which Warning Signs Actually Go With Heart Disease?
 
-A structured, fully documented case study exploring which clinical measurements
-are associated with the presence of heart disease, using the UCI Heart Disease
-dataset. The project is deliberately split into four phases, each committed
-separately, so the git history shows how the work actually progressed.
+*An end-to-end analytics case study on the UCI Heart Disease data: 920 patients, four hospitals, one question.*
 
-> **📄 [Read the report](reports/REPORT.md)**: the findings in plain language,
-> followed by the full analysis.
+Doctors send someone for an angiogram when they're already worried about
+that person's heart. So among those patients, which everyday measurements
+really separate the people who have heart disease from the people who don't?
+And does the answer hold up at a second hospital, or was it a fluke of the
+first one?
+
+I built this for two reasons. I'm always pushing to learn more Python and
+machine learning, and the best way I know to do that is to pick a real
+dataset and see it all the way through. And healthcare hires a lot of data
+analysts. I'd like to be one of them. I don't come from a medical background,
+so this doubled as my crash course in how clinical data actually behaves: the
+gaps, the odd codes and all.
+
+I took it from raw download to final report in four phases. Each one is its
+own set of commits, so the history shows how the work actually unfolded,
+mistakes and course corrections included.
+
+> **📄 [Read the report](reports/REPORT.md).** The findings in plain language first, then the full analysis.
 >
-> **📘 [Learning guide](docs/LEARNING_GUIDE.md)**: every medical term,
-> technique and code concept used, with interview questions and answers.
+> **📘 [Learning guide](docs/LEARNING_GUIDE.md).** Every medical term, technique and code concept I used, plus the interview questions I'd expect.
 
-**In one sentence:** among 920 patients referred for heart testing at four
-hospitals, exercise-test results, exercise-induced chest pain, sex and chest
-pain type were consistently linked to heart disease. Routine measurements
-alone separated patients with and without disease with a cross-validated AUC
-of 0.87.
+**The short answer:** four signs held up at every hospital I tested them on.
+An abnormal exercise ECG, chest pain brought on by exercise, being male, and
+(the one most people wouldn't guess) having no chest pain at all. Routine measurements
+alone picked out the patient with disease in 87 of 100 pairs. Meanwhile
+cholesterol and blood pressure, two of the most famous risk factors there
+are, barely told the groups apart. That's not because they don't matter.
+It's because of who ends up getting tested.
 
 ![Four signs stood out and held up at other hospitals](reports/figures/story_2_warning_signs.png)
 
 ## Roadmap
 
-- [x] **1. Gathering** — download the data reproducibly, verify license and structure
-- [x] **2. Cleaning** — handle missing values, fix types, decode categories, document every decision
-- [x] **3. Analysis** — exploratory analysis and statistical comparisons: Cleveland as the primary sample, all four sites as a robustness check
-- [x] **4. Reporting** — findings, limitations, and visual summary ([report](reports/REPORT.md), [learning guide](docs/LEARNING_GUIDE.md))
+- [x] **1. Gathering:** download the data reproducibly, verify license and structure
+- [x] **2. Cleaning:** handle missing values, fix types, decode categories, document every decision
+- [x] **3. Analysis:** exploratory analysis and statistical comparisons: Cleveland as the primary sample, all four sites as a robustness check
+- [x] **4. Reporting:** findings, limitations, and visual summary ([report](reports/REPORT.md), [learning guide](docs/LEARNING_GUIDE.md))
 
 ## Repository structure
 
 ```
 .
 ├── data/
-│   ├── raw/          # original downloads — never edited by hand
+│   ├── raw/          # original downloads, never edited by hand
 │   └── processed/    # outputs of the cleaning phase
 ├── docs/             # learning guide
 ├── notebooks/        # verification and analysis notebooks (02–06)
@@ -65,7 +79,7 @@ python src/make_report_figures.py  # plain-language story charts for the report
 | **Page** | https://archive.ics.uci.edu/dataset/45/heart+disease |
 | **Files from** | https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/ |
 | **DOI** | [10.24432/C52P4X](https://doi.org/10.24432/C52P4X) |
-| **License** | [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) — sharing and adaptation allowed for any purpose with appropriate credit |
+| **License** | [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). Sharing and adaptation allowed for any purpose with appropriate credit |
 | **Collected at** | Cleveland Clinic Foundation; Hungarian Institute of Cardiology, Budapest; University Hospitals of Zurich and Basel; V.A. Medical Center, Long Beach |
 | **Donated** | July 1988 |
 | **Downloaded** | 2026-09-24 |
@@ -88,7 +102,7 @@ is byte-for-byte identical to the one analysed here.
 | `processed.hungarian.data` | Hungarian Institute of Cardiology | 294 |
 | `processed.switzerland.data` | University Hospitals Zurich & Basel | 123 |
 | `processed.va.data` | V.A. Medical Center, Long Beach | 200 |
-| `heart-disease.names` | Documentation | — |
+| `heart-disease.names` | Documentation | n/a |
 
 920 rows in total. Each file is comma-separated with no header row and 14
 columns; missing values are written as `?`.
@@ -119,7 +133,7 @@ processed files keep these 14.
 
 `src/check_structure.py` compared the files against `heart-disease.names`.
 Row counts and all categorical codes match, except for the points below. None
-are fixed here — raw data stays untouched — they are inputs to the cleaning
+are fixed here (raw data stays untouched); they are inputs to the cleaning
 phase.
 
 1. **Missing-value marker.** The documentation says `-9.0`; the processed files
