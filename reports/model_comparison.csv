@@ -1,0 +1,7 @@
+features,model,AUC,AUC_low,AUC_high,Brier
+pre-imaging (11),Logistic regression,0.872,0.865,0.878,0.145
+pre-imaging (11),Random forest,0.865,0.86,0.873,0.15
+pre-imaging (11),Gradient boosting,0.855,0.846,0.865,0.154
+all 13,Logistic regression,0.908,0.903,0.914,0.118
+all 13,Random forest,0.909,0.903,0.914,0.125
+all 13,Gradient boosting,0.896,0.889,0.905,0.128

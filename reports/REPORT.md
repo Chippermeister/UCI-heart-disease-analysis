@@ -38,7 +38,10 @@ found. And whether the answer survives a move to a different hospital.
    check-up and exercise-test results, the model picked out the patient with
    disease in **87 of 100** random pairs (one patient with disease, one
    without). Adding specialised heart imaging raised that to **90 of 100**.
-   Useful, but not the leap you'd expect.
+   Useful, but not the leap you'd expect. I also tried two
+   machine-learning models, a random forest and gradient boosting. Neither
+   beat the simple model, which is good news: the model you can explain to a
+   doctor is also the one that predicts best here.
 
 4. **The hospital mattered as much as the patient.** Between 36% and 93% of
    patients had heart disease, depending on where they were tested. A model
@@ -128,6 +131,7 @@ step checks the one before it:
 | Profile | How do patients with and without disease differ, one variable at a time? | Medians and interquartile ranges; disease rate per category |
 | Tests | Are those differences bigger than chance, and how big are they? | Mann–Whitney U with probability of superiority; chi-square (permutation-based for small cells) with Cramér's V; 95% bootstrap confidence intervals; Holm correction for 13 tests |
 | Model | Which predictors still matter when the others are held constant? | Logistic regression, odds ratios with 95% CIs. Model A: 11 pre-imaging predictors. Model B: adds vessel count and thallium. Likelihood-ratio test; AUC under 20× repeated stratified 10-fold cross-validation |
+| ML comparison | Does a more flexible model predict better? | Logistic regression vs random forest vs gradient boosting on identical 20× repeated 10-fold splits; AUC, Brier score, calibration curves, permutation importance on held-out folds |
 | Replication | Do the findings hold at other hospitals? | Same 7-predictor model fitted at Cleveland and at the other three sites (with a site term); interaction test; the Cleveland model transported to each site (AUC with bootstrap CIs, calibration) |
 
 ### 4. Results
@@ -195,6 +199,34 @@ risk levels right (calibration) are separate properties.
 
 ![Four-site comparison](figures/four_site_odds_ratios.png)
 
+#### 4.4 Machine-learning comparison (Cleveland, n = 297)
+
+Logistic regression was compared with a random forest and gradient boosting,
+all scored on the same cross-validation splits. The tree models used
+conservative, fixed hyperparameters (not tuned, since tuning on 297 patients
+would itself over-fit).
+
+| Predictors | Logistic regression | Random forest | Gradient boosting |
+|---|---|---|---|
+| Pre-imaging (11), AUC | **0.872** | 0.865 | 0.855 |
+| All 13, AUC | 0.908 | **0.909** | 0.896 |
+| Pre-imaging (11), Brier score (lower is better) | **0.145** | 0.150 | 0.154 |
+
+- **The simple model held its own.** With routine predictors, neither tree
+  model beat logistic regression in any of the 20 repeats. With all 13, the
+  random forest tied it (ahead in 13 of 20 repeats, by at most 0.006).
+- **All three models agree on the top three signals,** in the same order:
+  chest pain type, sex and ST depression. Cholesterol, resting ECG and fasting
+  blood sugar sit near zero for all three.
+- **The tree models gave age more weight** (ranked 5th–6th vs 10th), possibly
+  through combinations with other predictors. It's a lead, not a finding: the
+  effect is small and the trees didn't predict better.
+- **Conclusion:** extra complexity isn't worth its cost in interpretability
+  here, so the logistic regression, whose odds ratios can be explained to a
+  clinician, is the model to keep.
+
+![Model comparison](figures/model_comparison_auc.png)
+
 ### 5. Limitations
 
 - **Referred patients only.** Every patient was sent for angiography. This
@@ -216,7 +248,8 @@ risk levels right (calibration) are separate properties.
 - **Multiple imputation** for missing values, instead of dropping patients,
   to test whether complete-case analysis biased the four-site results.
 - **Penalised (ridge/lasso) regression** to stabilise the models near the
-  sample-size limit.
+  sample-size limit, and **nested cross-validation** to tune the tree models
+  fairly.
 - **Calibration curves and recalibration** of the transported model for each site.
 - **A mixed-effects model** with a random intercept for site, as an
   alternative to the fixed site term.
@@ -240,3 +273,4 @@ jupyter nbconvert --to notebook --execute --inplace notebooks/0*.ipynb
 | [`04_cleveland_tests`](../notebooks/04_cleveland_tests.ipynb) | Effect sizes, confidence intervals, corrected tests |
 | [`05_cleveland_model`](../notebooks/05_cleveland_model.ipynb) | Logistic regression, cross-validation |
 | [`06_four_site_check`](../notebooks/06_four_site_check.ipynb) | Replication and transport |
+| [`07_model_comparison`](../notebooks/07_model_comparison.ipynb) | Logistic regression vs random forest vs gradient boosting |
