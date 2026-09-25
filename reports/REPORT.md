@@ -146,6 +146,13 @@ disease). Cholesterol and resting blood pressure reach p < 0.05 when tested
 alone but not after the Holm correction (both p = 0.078), and their effects
 are small. Fasting blood sugar shows no association.
 
+The two charts below show the raw differences behind those numbers: every
+patient's measurements by diagnosis, and the disease rate within each category.
+
+![Cleveland numeric measurements by diagnosis](figures/cleveland_numeric_by_diagnosis.png)
+
+![Cleveland disease rate by category](figures/cleveland_categorical_disease_rate.png)
+
 ![Cleveland effect sizes](figures/cleveland_effect_sizes.png)
 
 #### 4.2 Adjusted for each other (Cleveland, n = 297 complete cases)
@@ -225,7 +232,14 @@ would itself over-fit).
   here, so the logistic regression, whose odds ratios can be explained to a
   clinician, is the model to keep.
 
+*A note on the numbers:* logistic regression scores 0.872 here and 0.869 in
+section 4.2. Both are right. scikit-learn's version adds a mild penalty that
+keeps coefficients small, and the two analyses use different random splits.
+A 0.003 difference is well within the variation between repeats.
+
 ![Model comparison](figures/model_comparison_auc.png)
+
+![Permutation importance by model](figures/model_comparison_importance.png)
 
 ### 5. Limitations
 
